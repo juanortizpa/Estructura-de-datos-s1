@@ -5,16 +5,6 @@ def busqueda_lineal(lista, objetivo):
     return -1  # No encontrado
 
 def busqueda_binaria(lista, objetivo):
-    """
-    Realiza una búsqueda binaria en una lista ordenada para encontrar el índice de un elemento objetivo.
-
-    Args:
-        lista (list): Una lista ordenada de elementos.
-        objetivo: El elemento que se desea encontrar en la lista.
-
-    Returns:
-        int: El índice del elemento objetivo en la lista si se encuentra, de lo contrario, -1.
-    """
     inicio, fin = 0, len(lista) - 1
     while inicio <= fin:
         medio = (inicio + fin) // 2

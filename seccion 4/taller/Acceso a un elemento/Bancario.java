@@ -1,24 +1,10 @@
-import java.util.Random;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Bancario {
 
-    public static String obtenerPrimerElemento(String[] arr) { 
-        return arr[0];
-    }
-
-    public  string obtenerNombre( ) {
-        //debido a que necesitamos una API para obtener la Temperatura, se simulará un valor aleatorio
-        Random rand = new Random();
-        double temperatura = rand.nextDouble(100);
-        return temperatura;
-    }
-
- 
-    public static void main(String[] args) {
-
-         				// Datos del encabezado
+    public static void encabezadopgm() {
+        // Datos del encabezado
         String nombre = "Juan Ortiz";
         String campus = "Campus Cali, U. Cooperativa de Colombia";
         String repositorioGit = "https://github.com/juanortizpa/Estructura-de-datos-s1";
@@ -36,13 +22,23 @@ public class Bancario {
         System.out.println("| 📂 Repositorio Git: " + repositorioGit);
         System.out.println("+----------------------------------------");
         System.out.println();
-        
-    Double[] arr = new Double[24];
-    Agropecuario temperatura = new Agropecuario();
-    
-    for (int i = 0; i < 24; i++) { //se obtiene la temperatura las 24 horas del día
-        arr[i] = temperatura.obtenerHumedad();
     }
-    System.out.println("El primer registro de temperatura del día es " + obtenerPrimerElemento(arr));
+
+    public static String obtenerPrimerElemento(String[] arr) {
+        return arr[0];
     }
+
+    public static void main(String[] args) {
+        encabezadopgm();
+        String[] arr = new String[5];
+
+        arr[0] = "juan pablo ortiz";
+        arr[1] = "roberto roldan";
+        arr[2] = "harold roldan";
+        arr[3] = "roberto ortiz";
+        arr[4] = "miguel angel roldan";
+
+        System.out.println("el primer cliente que generó una transacción en el día es " + obtenerPrimerElemento(arr));
+    }
+
 }

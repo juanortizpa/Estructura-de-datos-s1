@@ -1,23 +1,11 @@
-import java.util.Random;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
 
-public class Agropecuario {
+public class Salud1 {
 
-    public static Double obtenerPrimerElemento(Double[] arr) { 
-        return arr[0];
-    }
-
-    public  double obtenerHumedad( ) {
-        //debido a que necesitamos una API para obtener la humedad, se simulará un valor aleatorio
-        Random rand = new Random();
-        double humedad = rand.nextDouble(100);
-        return humedad;
-    }
-
- 
     public static void main(String[] args) {
-
+        Scanner scanner = new Scanner(System.in);
          				// Datos del encabezado
         String nombre = "Juan Ortiz";
         String campus = "Campus Cali, U. Cooperativa de Colombia";
@@ -37,12 +25,24 @@ public class Agropecuario {
         System.out.println("+----------------------------------------");
         System.out.println();
         
-    Double[] arr = new Double[24];
-    Agropecuario humedad = new Agropecuario();
-    
-    for (int i = 0; i < 24; i++) { //se obtiene la humedad las 24 horas del día
-        arr[i] = humedad.obtenerHumedad();
-    }
-    System.out.println("la primera lectura de humedad del día es " + obtenerPrimerElemento(arr) + "%");
+        System.out.print("Ingrese la cantidad de comidas consumidas al día : ");
+        int n = scanner.nextInt();
+        scanner.nextLine();
+        int[] arr = new int[n];
+        int suma = 0;
+        
+
+ 
+        for (int i = 0; i < n; i++) {
+            System.out.println("Ingrese la cantidad de calorias de la comida " + (i+1) + " :");
+            arr[i] = scanner.nextInt();
+            suma += arr[i];
+        }
+
+        scanner.close();
+        System.out.println("La suma de calorias consumidas al día es: " + suma);
     }
 }
+           
+ 
+        

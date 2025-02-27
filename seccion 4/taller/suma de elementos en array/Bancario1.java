@@ -1,24 +1,10 @@
-import java.util.Random;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Agropecuario {
+public class Bancario1 {
 
-    public static Double obtenerPrimerElemento(Double[] arr) { 
-        return arr[0];
-    }
-
-    public  double obtenerHumedad( ) {
-        //debido a que necesitamos una API para obtener la humedad, se simulará un valor aleatorio
-        Random rand = new Random();
-        double humedad = rand.nextDouble(100);
-        return humedad;
-    }
-
- 
-    public static void main(String[] args) {
-
-         				// Datos del encabezado
+    public static void encabezadopgm() {
+        // Datos del encabezado
         String nombre = "Juan Ortiz";
         String campus = "Campus Cali, U. Cooperativa de Colombia";
         String repositorioGit = "https://github.com/juanortizpa/Estructura-de-datos-s1";
@@ -36,13 +22,22 @@ public class Agropecuario {
         System.out.println("| 📂 Repositorio Git: " + repositorioGit);
         System.out.println("+----------------------------------------");
         System.out.println();
-        
-    Double[] arr = new Double[24];
-    Agropecuario humedad = new Agropecuario();
-    
-    for (int i = 0; i < 24; i++) { //se obtiene la humedad las 24 horas del día
-        arr[i] = humedad.obtenerHumedad();
     }
-    System.out.println("la primera lectura de humedad del día es " + obtenerPrimerElemento(arr) + "%");
+
+    public static int sumaElementos(int[] arr) {
+        int suma = 0;
+        for (int num : arr) {
+            suma += num;
+        }
+        return suma;
+    }
+
+    public static void main(String[] args) {
+        encabezadopgm();
+
+        int[] arr = { 100, 200, 300, 400, 500, 1000, 2000, 3000, 4000, 5000 };
+
+        System.out.println("la suma total de depósitos realizados en el día es de: " + sumaElementos(arr));
+
     }
 }

@@ -29,7 +29,7 @@ public class Salud {
         System.out.println("+----------------------------------------");
         System.out.println();
         
-        System.out.print("Ingrese el tamaño del array: ");
+        System.out.print("Ingrese la cantidad de pacientes: ");
         int n = scanner.nextInt();
         scanner.nextLine();
         String[] arr = new String[n];

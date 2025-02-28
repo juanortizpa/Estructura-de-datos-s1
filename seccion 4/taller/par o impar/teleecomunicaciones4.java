@@ -1,11 +1,8 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
-
-public class Agropecuario1 {
-
+public class teleecomunicaciones4 {
     public static void main(String[] args) {
-
         // Datos del encabezado
         String nombre = "Juan Ortiz";
         String campus = "Campus Cali, U. Cooperativa de Colombia";
@@ -25,20 +22,15 @@ public class Agropecuario1 {
         System.out.println("+----------------------------------------");
         System.out.println();
 
-        int n = 0;
-        int[] arr = new int[n];
-        int suma = 0;
-        System.out.println("Ingrese la cantidad de animales del ganado: ");
         Scanner scanner = new Scanner(System.in);
-        n = scanner.nextInt();
-        arr = new int[n];
-        for (int i = 0; i < n; i++) {
-            System.out.println("Ingrese el peso del animal " + (i + 1) + " :");
-            arr[i] = scanner.nextInt();
-            suma += arr[i];
-        }
-
+        System.out.print("Ingrese el IP : ");
+        long codigo = scanner.nextLong();
         scanner.close();
-        System.out.println("El peso total del ganado es: " + suma + " Kg");
+        if (codigo % 2 == 0) {
+            System.out.println("El IP es par.");
+        } else {
+            System.out.println("El IP es impar.");
+            
+        }
     }
 }

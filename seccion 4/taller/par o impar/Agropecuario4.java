@@ -1,12 +1,13 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+import java.util.ArrayList;
 
-public class Agropecuario1 {
+public class Agropecuario4 {
 
     public static void main(String[] args) {
 
-        // Datos del encabezado
+         				// Datos del encabezado
         String nombre = "Juan Ortiz";
         String campus = "Campus Cali, U. Cooperativa de Colombia";
         String repositorioGit = "https://github.com/juanortizpa/Estructura-de-datos-s1";
@@ -24,21 +25,30 @@ public class Agropecuario1 {
         System.out.println("| 📂 Repositorio Git: " + repositorioGit);
         System.out.println("+----------------------------------------");
         System.out.println();
-
+        
         int n = 0;
-        int[] arr = new int[n];
-        int suma = 0;
-        System.out.println("Ingrese la cantidad de animales del ganado: ");
+        System.out.println("Ingrese la cantidad de lotes de pollo : ");
         Scanner scanner = new Scanner(System.in);
         n = scanner.nextInt();
-        arr = new int[n];
+        ArrayList<Integer> pollosp = new ArrayList<>();
+        ArrayList<Integer> pollosi = new ArrayList<>();
+
         for (int i = 0; i < n; i++) {
-            System.out.println("Ingrese el peso del animal " + (i + 1) + " :");
-            arr[i] = scanner.nextInt();
-            suma += arr[i];
+            System.out.println("Ingrese el la cantidad de pollos del lote " + (i+1) + " :");
+            int a = scanner.nextInt();
+            if (a % 2 == 0) {
+                pollosp.add(a);
+            }else {
+                pollosi.add(a);
+            }
         }
 
-        scanner.close();
-        System.out.println("El peso total del ganado es: " + suma + " Kg");
+
+  scanner.close();
+        System.out.println("Los lotes de pollos pares son: " + pollosp);
+        System.out.println("Los lotes de pollos impares son: " + pollosi);
     }
 }
+           
+ 
+        

@@ -13,9 +13,23 @@ public class servicio_tecnico {
         }
 
         public String toString() {
+            String mensajePrioridad;
+            switch (prioridad) {
+                case "críticas":
+                    mensajePrioridad = "Crítica: Servidor caído";
+                    break;
+                case "importantes":
+                    mensajePrioridad = "Importante: Actualización de software";
+                    break;
+                case "generales":
+                    mensajePrioridad = "General: Soporte de usuario";
+                    break;
+                default:
+                    mensajePrioridad = "Prioridad desconocida";
+            }
             return "Cliente{" +
                     "nombre='" + nombre + '\'' +
-                    ", prioridad='" + prioridad + '\'' +
+                    ", prioridad='" + mensajePrioridad + '\'' +
                     '}';
         }
 
@@ -28,19 +42,6 @@ public class servicio_tecnico {
             return nuevosclientes;
         }
 
-        public static cliente[] eliminarPrimercliente(cliente[] clientes){
-            if (clientes.length == 0) {
-                System.out.println("No hay clientes en la lista.");
-                return clientes;
-            }
-            cliente[] nuevosclientes = new cliente[clientes.length - 1];
-            for (int i = 0; i < nuevosclientes.length; i++) {
-                nuevosclientes[i] = clientes[i + 1];
-            }
-            System.out.println("El cliente " + clientes[0].nombre + " ha sido eliminado de la lista.");
-            System.out.println("El cliente " + clientes[0].nombre + " ha sido atendido.");
-            return nuevosclientes;
-        }
 
         public static void ordenarclientesPorPrioridad(cliente[] clientes) {
             int n = clientes.length;
@@ -109,7 +110,7 @@ public class servicio_tecnico {
 
             ordenarclientesPorPrioridad(clientes);
 
-            System.out.println("clientes ordenados:");
+            System.out.println("Clientes ordenados:");
             for (cliente p : clientes) {
                 System.out.println(p);
             }
@@ -119,8 +120,7 @@ public class servicio_tecnico {
             while (opcion != 3) {
                 System.out.println("Ingrese una opcion:");
                 System.out.println("1. Agregar un nuevo cliente");
-                System.out.println("2. Iniciar la consulta");
-                System.out.println("3. Salir");
+                System.out.println("2. Salir");
                 opcion = scanner.nextInt();
                 scanner.nextLine(); // Consumir la nueva línea
 
@@ -133,15 +133,12 @@ public class servicio_tecnico {
                         cliente nuevocliente = new cliente(nombrecliente, prioridadcliente);
                         clientes = agregarcliente(clientes, nuevocliente);
                         ordenarclientesPorPrioridad(clientes);
-                        System.out.println("clientes ordenados por prioridad:");
+                        System.out.println("Clientes ordenados por prioridad:");
                         for (cliente p : clientes) {
                             System.out.println(p);
                         }
                         break;
                     case 2:
-                        clientes = eliminarPrimercliente(clientes);
-                        break;
-                    case 3:
                         System.out.println("Saliendo...");
                         break;
                     default:

@@ -9,7 +9,7 @@ void imprimirEncabezado() {
     // Datos del encabezado
     string nombre = "Juan Ortiz";
     string campus = "Campus Cali, U. Cooperativa de Colombia";
-    string repositorioGit = "https://github.com/juanortizpa/Estructura-de-datos-s1/seccion8";
+    string repositorioGit = "https://github.com/juanortizpa/Estructura-de-datos-s1/seccion9";
 
     // Obtener la fecha y hora actual
     auto ahora = chrono::system_clock::now();

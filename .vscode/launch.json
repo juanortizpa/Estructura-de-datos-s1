@@ -4,5 +4,27 @@
     // Para más información, visite: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "command": "g++",
-    "args": ["-g", "${file}", "-o", "${fileDirname}/${fileBasenameNoExtension}", "-pthread"]
+    "args": [
+        "-g",
+        "${file}",
+        "-o",
+        "${fileDirname}/${fileBasenameNoExtension}",
+        "-pthread"
+    ],
+    "configurations": [
+        {
+            "type": "java",
+            "name": "PruebaListaMantenimiento",
+            "request": "launch",
+            "mainClass": "PruebaListaMantenimiento",
+            "projectName": "Estructura-de-datos-s1_caf7371b"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "Main",
+            "projectName": "Estructura-de-datos-s1_caf7371b"
+        }
+    ]
 }

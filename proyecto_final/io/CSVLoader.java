@@ -4,7 +4,25 @@ import proyecto_final.modelo.*;
 import java.io.*;
 import java.util.*;
 
+/**
+ * Clase CSVLoader que permite cargar un grafo desde un archivo CSV.
+ * El archivo CSV debe tener el siguiente formato:
+ * - Cada línea representa una arista del grafo.
+ * - Las columnas deben estar separadas por comas y representar:
+ *   1. Nodo origen
+ *   2. Nodo destino
+ *   3. Peso de la arista
+ * - La primera línea se considera un encabezado y se ignora.
+ */
 public class CSVLoader {
+
+    /**
+     * Carga un grafo desde un archivo CSV.
+     *
+     * @param path La ruta del archivo CSV que contiene la información del grafo.
+     * @return Un objeto de tipo Grafo que representa el grafo cargado.
+     * @throws IOException Si ocurre un error al leer el archivo.
+     */
     public static Grafo cargar(String path) throws IOException {
         Grafo g = new Grafo();
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {

@@ -1,15 +1,18 @@
 package proyecto_final;
 
 import java.io.IOException;
-
 import proyecto_final.modelo.*;
 import proyecto_final.algoritmos.*;
 import proyecto_final.estructuras.*;
 import proyecto_final.simulacion.*;
 import proyecto_final.io.*;
-
 import java.util.*;
 
+/**
+ * Clase principal `App` que permite interactuar con un sistema de gestión de grafos.
+ * Proporciona un menú para realizar diversas operaciones como calcular rutas,
+ * detectar inconsistencias y gestionar cambios en un grafo cargado desde un archivo CSV.
+ */
 public class App {
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
@@ -41,7 +44,7 @@ public class App {
                     System.out.print("Destino: ");
                     Nodo d = new Nodo(sc.next());
 
-                    // Iniciar simulación (20s)
+                    // Iniciar simulación de tráfico (20 segundos)
                     Thread simulador = new Thread(new SimuladorTráfico(grafo, 20000));
                     simulador.start();
 
@@ -84,12 +87,51 @@ public class App {
                     break;
                 }
                 case 2: {
-                    System.out.println("Calculando recorrido completo...");
-                    int[][] distFW = FloydWarshall.calcular(grafo, nodos);
-                    System.out.println("Matriz de distancias:");
-                    for (int i = 0; i < nodos.size(); i++)
-                        System.out.println(Arrays.toString(distFW[i]));
-                    pila.push("Floyd-Warshall completo");
+                    System.out.print("Origen: ");
+                    Nodo o = new Nodo(sc.next());
+                    System.out.print("Destino: ");
+                    Nodo d = new Nodo(sc.next());
+
+                    // Iniciar simulación de tráfico (20 segundos)
+                    Thread simulador = new Thread(new SimuladorTráfico(grafo, 20000));
+                    simulador.start();
+
+                    System.out.println("Calculando ruta más rápida... espera 20 segundos.");
+                    try {
+                        Thread.sleep(20000);
+                    } catch (InterruptedException e) {
+                        System.err.println("Cálculo interrumpido.");
+                    }
+
+                    Map<Nodo, Integer> distancias = Dijkstra.calcular(grafo, o);
+                    Map<Nodo, Nodo> previos = Dijkstra.getPrevios();
+
+                    // Reconstruir ruta
+                    List<Nodo> ruta = new ArrayList<>();
+                    Nodo actual = d;
+                    while (actual != null && !actual.equals(o)) {
+                        ruta.add(actual);
+                        actual = previos.get(actual);
+                    }
+
+                    if (actual == null) {
+                        System.out.println("No hay ruta desde " + o + " a " + d);
+                    } else {
+                        ruta.add(o);
+                        Collections.reverse(ruta);
+
+                        System.out.print("Ruta: ");
+                        for (int i = 0; i < ruta.size(); i++) {
+                            System.out.print(ruta.get(i));
+                            if (i < ruta.size() - 1)
+                                System.out.print(" -> ");
+                        }
+                        System.out.println();
+
+                        System.out.printf("Tiempo estimado: %d min%n", distancias.get(d));
+                    }
+
+                    pila.push("Dijkstra de " + o + " a " + d);
                     break;
                 }
                 case 3: {

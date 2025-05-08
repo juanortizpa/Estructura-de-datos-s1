@@ -25,10 +25,10 @@ public class Grafo {
      * @param v El nodo destino de la arista.
      * @param peso El peso de la arista.
      */
-    public void addArista(Nodo u, Nodo v, int peso) {
+    public void addArista(Nodo u, Nodo v, int peso , boolean estado, double costo) {
         addNodo(u);
         addNodo(v);
-        adj.get(u).add(new Arista(u, v, peso));
+        adj.get(u).add(new Arista(u, v, peso, estado, costo));
     }
 
     /**

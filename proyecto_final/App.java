@@ -7,6 +7,8 @@ import proyecto_final.estructuras.*;
 import proyecto_final.simulacion.*;
 import proyecto_final.io.*;
 import java.util.*;
+import java.util.Random; 
+
 
 /**
  * Clase principal `App` que permite interactuar con un sistema de gestión de grafos.
@@ -21,12 +23,15 @@ public class App {
         Grafo grafo = CSVLoader.cargar(path);
         PilaCambios pila = new PilaCambios();
         ListaCongestiones lista = new ListaCongestiones();
+        Double ValorMantenimientoMinuto = 7500.0;
+
+       
 
         List<Nodo> nodos = new ArrayList<>(grafo.getNodos());
 
         while (true) {
             System.out.println("\n--- Menú ---");
-            System.out.println("1. Ruta más rápida entre estaciones (Dijkstra)");
+            System.out.println("1. Ruta más rápida entre terminales (Dijkstra)");
             System.out.println("2. Recorrido completo (Floyd-Warshall)");
             System.out.println("3. Replanificar (Floyd-Warshall)");
             System.out.println("4. Detectar inconsistencias (Bellman-Ford)");
@@ -39,13 +44,22 @@ public class App {
 
             switch (op) {
                 case 1: {
-                    System.out.print("Origen: ");
+                    System.out.print("Digite la terminal de origen: ");
+                    // Obtener nodo de origen
                     Nodo o = new Nodo(sc.next());
-                    System.out.print("Destino: ");
-                    Nodo d = new Nodo(sc.next());
+                    Nodo d = null;
+                    if (o.equals(new Nodo("Terminal1"))) {
+                        d = new Nodo("Terminal2");
+                    } else if (o.equals(new Nodo("Terminal2"))) {
+                        d = new Nodo("Terminal1");
+                    } else {
+                        System.out.println("Origen no válido.");
+                        break;
+                    }
+                    
 
                     // Iniciar simulación de tráfico (20 segundos)
-                    Thread simulador = new Thread(new SimuladorTráfico(grafo, 20000));
+                    Thread simulador = new Thread(new SimuladorTráfico(grafo, 20000, true));
                     simulador.start();
 
                     System.out.println("Calculando ruta más rápida... espera 20 segundos.");
@@ -55,7 +69,7 @@ public class App {
                         System.err.println("Cálculo interrumpido.");
                     }
 
-                    Map<Nodo, Integer> distancias = Dijkstra.calcular(grafo, o);
+                    Map<Nodo, Integer> distancias = Dijkstra.calcular(grafo, o, grafo);
                     Map<Nodo, Nodo> previos = Dijkstra.getPrevios();
 
                     // Reconstruir ruta
@@ -81,10 +95,17 @@ public class App {
                         System.out.println();
 
                         System.out.printf("Tiempo estimado: %d min%n", distancias.get(d));
-                    }
+                        simulador.interrupt(); // Detener simulador
+                        Double ValorMantenimientoTotal = distancias.get(d) * ValorMantenimientoMinuto;
+                        System.out.printf("Costo de mantenimiento: $%.2f%n", ValorMantenimientoTotal);
 
-                    pila.push("Dijkstra de " + o + " a " + d);
+                        Random rand = new Random();
+                        int factor = rand.nextInt(160) + 1; // Número aleatorio entre 1 y 160
+                        System.out.println("Cantidad de pasajeros: " + factor);
+                        double Ganancia = ValorMantenimientoTotal * factor;
+                        System.out.printf("Ganancia estimada: $%.2f%n", Ganancia);
                     break;
+                }
                 }
                 case 2: {
                     System.out.print("Origen: ");
@@ -93,7 +114,7 @@ public class App {
                     Nodo d = new Nodo(sc.next());
 
                     // Iniciar simulación de tráfico (20 segundos)
-                    Thread simulador = new Thread(new SimuladorTráfico(grafo, 20000));
+                    Thread simulador = new Thread(new SimuladorTráfico(grafo, 20000, true));
                     simulador.start();
 
                     System.out.println("Calculando ruta más rápida... espera 20 segundos.");
@@ -103,7 +124,7 @@ public class App {
                         System.err.println("Cálculo interrumpido.");
                     }
 
-                    Map<Nodo, Integer> distancias = Dijkstra.calcular(grafo, o);
+                    Map<Nodo, Integer> distancias = Dijkstra.calcular(grafo, o, grafo);
                     Map<Nodo, Nodo> previos = Dijkstra.getPrevios();
 
                     // Reconstruir ruta
@@ -129,6 +150,7 @@ public class App {
                         System.out.println();
 
                         System.out.printf("Tiempo estimado: %d min%n", distancias.get(d));
+                        simulador.interrupt(); // Detener simulador
                     }
 
                     pila.push("Dijkstra de " + o + " a " + d);
@@ -136,9 +158,24 @@ public class App {
                 }
                 case 3: {
                     int[][] distFW = FloydWarshall.calcular(grafo, nodos);
-                    System.out.println("Matriz de distancias:");
-                    for (int i = 0; i < nodos.size(); i++)
-                        System.out.println(Arrays.toString(distFW[i]));
+                    System.out.println("Matriz de distancias entre estaciones:");
+                    System.out.print("\t");
+                    for (Nodo n : nodos) {
+                        System.out.print(n + "\t");
+                    }
+                    System.out.println();
+                    for (int i = 0; i < nodos.size(); i++) {
+                        System.out.print(nodos.get(i) + "\t");
+                        for (int j = 0; j < nodos.size(); j++) {
+                            int dist = distFW[i][j];
+                            if (dist == Integer.MAX_VALUE / 2 || dist == Integer.MAX_VALUE) {
+                                System.out.print("INF\t");
+                            } else {
+                                System.out.print(dist + "\t");
+                            }
+                        }
+                        System.out.println();
+                    }
                     pila.push("Floyd-Warshall completo");
                     break;
                 }

@@ -20,10 +20,12 @@ public class Dijkstra {
      * @return Un mapa que asocia cada nodo con su distancia mínima desde el nodo origen.
      *         Si un nodo no es alcanzable desde el origen, su distancia será Integer.MAX_VALUE.
      */
-    public static Map<Nodo, Integer> calcular(Grafo g, Nodo origen) {
+    public static Map<Nodo, Integer> calcular(Grafo g, Nodo origen, Grafo estado) {
         // Mapa para almacenar las distancias mínimas desde el nodo origen
         Map<Nodo, Integer> dist = new HashMap<>();
         previos = new HashMap<>(); // Inicializar el mapa de nodos previos
+
+        
 
         // Inicializar todas las distancias a infinito, excepto el nodo origen
         for (Nodo n : g.getNodos()) dist.put(n, Integer.MAX_VALUE);
@@ -37,6 +39,8 @@ public class Dijkstra {
         while (!pq.isEmpty()) {
             Nodo u = pq.poll(); // Extraer el nodo con la menor distancia
             for (Arista a : g.getAristasDesde(u)) { // Recorrer las aristas desde el nodo actual
+                // Solo considerar aristas con estado true
+                if (!a.getEstado()) continue;
                 Nodo v = a.getDestino();
                 int alt = dist.get(u) + a.getPeso(); // Calcular la distancia alternativa
                 if (alt < dist.get(v)) { // Si se encuentra un camino más corto

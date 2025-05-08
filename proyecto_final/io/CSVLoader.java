@@ -12,6 +12,7 @@ import java.util.*;
  *   1. Nodo origen
  *   2. Nodo destino
  *   3. Peso de la arista
+ *   4. Estado de la arista (opcional, por defecto true)
  * - La primera línea se considera un encabezado y se ignora.
  */
 public class CSVLoader {
@@ -34,10 +35,18 @@ public class CSVLoader {
                     continue; // saltar encabezado
                 }
                 String[] tok = line.split(",");
+                if (tok.length < 3) {
+                    System.err.println("Línea inválida en CSV (esperado al menos 3 columnas): " + line);
+                    continue;
+                }
                 Nodo u = new Nodo(tok[0].trim());
                 Nodo v = new Nodo(tok[1].trim());
                 int peso = Integer.parseInt(tok[2].trim());
-                g.addArista(u, v, peso);
+                boolean estado = true;
+                if (tok.length > 3) {
+                    estado = Boolean.parseBoolean(tok[3].trim());
+                }
+                g.addArista(u, v, peso, estado, 3200.0); // Usar el estado real del CSV, valor por defecto para el double
             }
         }
         return g;

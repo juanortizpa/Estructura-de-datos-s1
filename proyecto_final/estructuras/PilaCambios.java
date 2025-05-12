@@ -4,7 +4,8 @@ import proyecto_final.modelo.*;
 import java.util.*;
 
 /**
- * Clase PilaCambios que implementa una pila para gestionar cambios en un sistema.
+ * Clase PilaCambios que implementa una pila para gestionar cambios en un
+ * sistema.
  * Utiliza una estructura de datos tipo Deque para almacenar los elementos.
  */
 public class PilaCambios {

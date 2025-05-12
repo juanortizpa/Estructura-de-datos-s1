@@ -14,6 +14,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "SimulacionRuta",
+            "request": "launch",
+            "mainClass": "proyecto_final.simulacion.SimulacionRuta",
+            "projectName": "Estructura-de-datos-s1_caf7371b"
+        },
+        {
+            "type": "java",
             "name": "App",
             "request": "launch",
             "mainClass": "proyecto_final.App",
